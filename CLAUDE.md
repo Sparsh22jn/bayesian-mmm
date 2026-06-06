@@ -39,13 +39,26 @@ File: `data/raw/Sample Media Spend Data.csv`
 | `Overall_Views` | int | Paid + Organic combined — usually omit (collinear) |
 | `Sales` | int | **Target variable** |
 
-**Media channels (spend proxies):** Paid_Views, Google_Impressions,
-Email_Impressions, Facebook_Impressions, Affiliate_Impressions
+**Media channels (modelled with adstock + saturation):**
+- `Paid_Views`, `Google_Impressions`, `Email_Impressions`, `Facebook_Impressions`, `Affiliate_Impressions`
 
-**Controls:** Organic_Views, any seasonal features you engineer
+**Controls (linear, no adstock):** `Organic_Views`, any seasonal features you engineer
 
-**Never use** Overall_Views as a feature — it is a sum of Paid + Organic and
-will cause collinearity.
+**Never use** `Overall_Views` as a feature — it is a sum of Paid + Organic and will cause collinearity.
+
+### Controllable vs fixed — critical for the optimizer
+
+| Channel | Optimisable? | Reason |
+|---------|-------------|--------|
+| `Paid_Views` | **Yes** | YouTube paid ads — directly purchasable |
+| `Google_Impressions` | **Yes** | Google Ads budget — directly purchasable |
+| `Email_Impressions` | **Yes** | Emails deployed — we control send volume |
+| `Facebook_Impressions` | **Yes** | Facebook Ads budget — directly purchasable |
+| `Organic_Views` | **No** | YouTube organic — driven by content, not spend |
+| `Affiliate_Impressions` | **No** | Performance-based — partners control their own traffic |
+
+`CONTROLLABLE_COLS` and `FIXED_COLS` are the canonical lists defined in
+`src/mmm/optimize.py`. Import from there — do not redefine them elsewhere.
 
 ---
 
