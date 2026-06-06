@@ -1,0 +1,33 @@
+# Core modelling
+pymc>=5.10
+pymc-marketing>=0.7
+arviz>=0.18
+pytensor>=2.18
+
+# Data / numerics
+numpy>=1.26
+pandas>=2.1
+scipy>=1.11
+
+# Visualisation
+matplotlib>=3.8
+seaborn>=0.13
+plotly>=5.18
+
+# Dashboard
+streamlit>=1.32
+streamlit-extras>=0.4
+
+# Optimisation
+scikit-learn>=1.4
+
+# Claude API (insights tab)
+anthropic>=0.25
+
+# Notebooks
+jupyterlab>=4.1
+ipywidgets>=8.1
+
+# Dev / lint
+black
+ruff
