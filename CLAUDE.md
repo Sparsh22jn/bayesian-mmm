@@ -42,7 +42,16 @@ File: `data/raw/Sample Media Spend Data.csv`
 **Media channels (modelled with adstock + saturation):**
 - `Paid_Views`, `Google_Impressions`, `Email_Impressions`, `Facebook_Impressions`, `Affiliate_Impressions`
 
-**Controls (linear, no adstock):** `Organic_Views`, any seasonal features you engineer
+**Controls (linear, no adstock):**
+
+| Group | Columns | Notes |
+|-------|---------|-------|
+| Organic | `Organic_Views` | YouTube organic |
+| Calendar | `week_of_year`, `month`, `quarter`, `year`, `is_q4`, `trend` | Derived from `date` in `01_eda.ipynb` |
+| Holidays | `has_federal_holiday`, `is_black_friday_week`, `is_back_to_school`, `is_easter_week` | US calendar, derived in `01_eda.ipynb` |
+| Macro | `consumer_sentiment`, `unemployment_rate` | FRED monthly series, forward-filled to weekly in `01_eda.ipynb` |
+
+All control columns live in `ALL_CONTROL_COLS` defined in `01_eda.ipynb` and saved into `clean.parquet`. Pass them as `control_cols` to `BayesianMMM`.
 
 **Never use** `Overall_Views` as a feature — it is a sum of Paid + Organic and will cause collinearity.
 
